@@ -1,63 +1,119 @@
-function calcular() {
+/* ===== ESTILOS GENERALES ===== */
 
-    // Obtener los valores del formulario
-    let P = parseFloat(document.getElementById("monto").value);
-    let anual = parseFloat(document.getElementById("interes").value);
-    let n = parseInt(document.getElementById("meses").value);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-    // Validar que todos los campos estén completos
-    if (isNaN(P) || isNaN(anual) || isNaN(n)) {
-        alert("Por favor completa todos los campos.");
-        return;
-    }
+body{
+    background:#121212;
+    color:#ffffff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
 
-    let r = anual / 100 / 12;
+/* ===== CONTENEDOR ===== */
 
-    let cuota = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+.container{
+    width:100%;
+    max-width:800px;
+    background:#1f1f1f;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
 
-    let saldo = P;
+/* ===== TÍTULO ===== */
 
-    let tabla = `
-    <tr>
-        <th>Mes</th>
-        <th>Cuota</th>
-        <th>Interés</th>
-        <th>Capital</th>
-        <th>Saldo</th>
-    </tr>
-    `;
+h1{
+    text-align:center;
+    color:#4FC3F7;
+    margin-bottom:10px;
+}
 
-    let totalInteres = 0;
+.descripcion{
+    text-align:center;
+    color:#bdbdbd;
+    margin-bottom:30px;
+}
 
-    for (let i = 1; i <= n; i++) {
+/* ===== FORMULARIO ===== */
 
-        let interes = saldo * r;
+.formulario{
+    background:#2a2a2a;
+    padding:20px;
+    border-radius:10px;
+}
 
-        let capital = cuota - interes;
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:bold;
+}
 
-        saldo -= capital;
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#3a3a3a;
+    color:white;
+    font-size:16px;
+}
 
-        if (saldo < 0) saldo = 0;
+input:focus{
+    outline:2px solid #4FC3F7;
+}
 
-        totalInteres += interes;
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#1976D2;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-        tabla += `
-        <tr>
-            <td>${i}</td>
-            <td>$${cuota.toFixed(2)}</td>
-            <td>$${interes.toFixed(2)}</td>
-            <td>$${capital.toFixed(2)}</td>
-            <td>$${saldo.toFixed(2)}</td>
-        </tr>
-        `;
-    }
+button:hover{
+    background:#2196F3;
+}
 
-    document.getElementById("tabla").innerHTML = tabla;
+/* ===== RESULTADO ===== */
 
-    document.getElementById("resultado").innerHTML = `
-        <h2>Resumen</h2>
-        <p><strong>Cuota mensual:</strong> $${cuota.toFixed(2)}</p>
-        <p><strong>Total pagado:</strong> $${(cuota * n).toFixed(2)}</p>
-        <p><strong>Total de intereses:</strong> $${totalInteres.toFixed(2)}</p>
-    `;
+#resultado{
+    margin-top:30px;
+}
+
+/* ===== TABLA ===== */
+
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1976D2;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    text-align:center;
+    border-bottom:1px solid #444;
+}
+
+tr:nth-child(even){
+    background:#2b2b2b;
 }
